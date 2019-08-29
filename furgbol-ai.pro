@@ -5,10 +5,9 @@
 #-------------------------------------------------
 
 QT += core gui network
-QT += network
-
-TARGET = IA
 TEMPLATE = app
+
+TARGET = ai
 
 INCLUDEPATH += Utils \
     Sistema \
