@@ -5,13 +5,13 @@
 #include "Robo.h"
 #include "Bola.h"
 #include "Jogada.h"
-#include "messages_data_manager.pb.h"
+#include "furgbol-core/furgbol-proto/messages_data_manager.pb.h"
 #include "Geometria.h"
 #include "Config.h"
 #include "Campo.h"
 #include "Relogio.h"
 
-#include "grSim_Packet.pb.h"
+#include "grSim-proto/grSim_Packet.pb.h"
 /**
  * Este é o modelo global onde todos os modulos tem acesso, nele são guardados principalmente, os fatos globais sobre o jogo que serao utilizados para escolher plays entre outras coisas.
  *

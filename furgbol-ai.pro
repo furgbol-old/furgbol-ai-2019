@@ -8,6 +8,7 @@ QT += core gui network
 TEMPLATE = app
 
 TARGET = ai
+INCLUDEPATH +=  ../furgbol-core/include
 
 INCLUDEPATH += Utils \
     Sistema \
@@ -23,7 +24,6 @@ INCLUDEPATH += Utils \
     Agente/Navegador \
     ModeloMundo \
     Geometria
-INCLUDEPATH +=  ../proto-lib
 
 HEADERS += \
     Agente/Comando.h \
@@ -193,4 +193,4 @@ QMAKE_CXXFLAGS += -O3 -frounding-math
 
 LIBS += -lboost_system -lboost_thread -lprotobuf
 LIBS += -L../CGAL-4.13.1/lib -lCGAL
-LIBS += -L../proto-lib -lproto
+LIBS += -L../furgbol-core/lib -lssl-vision-proto -lssl-refbox-proto -lgrSim-proto -lfurgbol-proto
