@@ -1,6 +1,6 @@
 #include "Comunicador.h"
 
-Comunicador::Comunicador(){
+Comunicador::Comunicador() : transSerial(ConfigComunicacao::DISPOSITIVO_SERIAL) {
 }
 
 void Comunicador::init(QMutex* _mBUS, CommunicationBUS * _bus)
@@ -14,10 +14,10 @@ void Comunicador::init(QMutex* _mBUS, CommunicationBUS * _bus)
     switch(ConfigComunicacao::TIPO_ROBOS){
     case REAL:
 
-        transSerial.setDispositivo(ConfigComunicacao::DISPOSITIVO_SERIAL);
-        if(!transSerial.open()){
-            cout << "Nao foi possivel abrir a porta pra comunicar com a serial" << endl;
-        }
+        //transSerial.setDispositivo(ConfigComunicacao::DISPOSITIVO_SERIAL);
+        //if(!transSerial.open()){
+        //    cout << "Nao foi possivel abrir a porta pra comunicar com a serial" << endl;
+        //}
         break;
     }
 }
@@ -148,7 +148,6 @@ void Comunicador::send(const grSim_Packet& _pacoteSimulador)
 
 void Comunicador::send(const ProtocoloSerial& _pacoteRobo)
 {    
-    if(!transSerial.write(_pacoteRobo)){
-        cout << "Comunicador não conseguiu escrever na serial" << endl;
-    }
+    transSerial.send(_pacoteRobo);
+    //cout << "Comunicador não conseguiu escrever na serial" << endl;
 }

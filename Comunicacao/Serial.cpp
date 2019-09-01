@@ -1,5 +1,39 @@
 #include "Serial.h"
 
+Serial::Serial(std::string serial_port_name) : io_service_(), serial_port_(io_service_),
+    buffer_(buf_.data()), buffer_to_send_(9, 0)
+{
+    serial_port_.open(serial_port_name);
+
+    try {
+        serial_port_.set_option(boost::asio::serial_port_base::baud_rate(115200));
+        serial_port_.set_option(boost::asio::serial_port_base::character_size(8));
+    } catch (boost::system::system_error error) {
+        std::cout << "Comunicator Error: " << error.what() << std::endl;
+    }
+}
+
+Serial::~Serial() {
+    serial_port_.close();
+}
+
+void Serial::send(ProtocoloSerial message_to_send) {
+    message_to_send.serialize(buffer_to_send_);
+    serial_port_.write_some(boost::asio::buffer(buffer_to_send_, buffer_to_send_.size()));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----- CÓDIGO ANTIGO -----
 using namespace boost::asio;
 
 //! passar para as configurações da interface
@@ -45,30 +79,30 @@ bool Serial::open()
 bool Serial::configurar(){
 
     try{
-        /**
-           Configura o baud rate
-        */
+
+           //Configura o baud rate
+
         serial.set_option(serial_port_base::baud_rate(baud_rate));
 
-        /**
-           Configura a paridade
-           none -- sem paridade
-           odd  -- paridade impar
-           even -- paridade par
-        */
+
+           //Configura a paridade
+           //none -- sem paridade
+           //odd  -- paridade impar
+           //even -- paridade par
+
         //serial.set_option(serial_port_base::parity(serial_port_base::parity::type::none));
 
-        /**
-           Configura o numero de stop bits
-           one -- um stop bit
-           onepointfive -- 1.5 stop bits
-           two -- dois stop bits
-        */
+
+           //Configura o numero de stop bits
+           //one -- um stop bit
+           //onepointfive -- 1.5 stop bits
+           //two -- dois stop bits
+
         //serial.set_option(serial_port_base::stop_bits(serial_port_base::stop_bits::type::one));
 
-        /**
-           Configura o tamanho do caractere
-        */
+
+           //Configura o tamanho do caractere
+
         unsigned int tam = 8;
         serial.set_option(serial_port_base::character_size(tam));
 
@@ -121,4 +155,4 @@ bool Serial::write(const vector <unsigned char> &buf){
 
     return true;
 
-}
+}*/

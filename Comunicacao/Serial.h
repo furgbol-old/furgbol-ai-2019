@@ -5,12 +5,27 @@
 #include <boost/asio/serial_port.hpp>
 
 #include <ProtocoloSerial.h>
-/**
- * Classe que se comunica com o robo via porta serial
- */
 
-class Serial
-{
+class Serial {
+private:
+    boost::asio::streambuf buf_;
+    boost::asio::io_service io_service_;
+    boost::asio::streambuf::const_buffers_type buffer_;
+    boost::asio::serial_port serial_port_;
+
+    std::vector<unsigned char> buffer_to_send_;
+
+public:
+    Serial(std::string serial_port_name);
+    ~Serial();
+
+    void send(ProtocoloSerial message_to_send);
+};
+#endif //SERIAL_H
+
+
+
+/* --- CÓDIGO ANTIGO ---
 public:
     Serial();
     ~Serial();
@@ -30,6 +45,4 @@ private:
     vector<unsigned char> buf;
 
     int baud_rate;
-};
-#endif //SERIAL_H
-
+*/

@@ -8,19 +8,18 @@ Montador::Montador(){
     velAngularAtual=0.0;
     enableChute = true;
     thetaAnterior=0.0;
-    pacoteSerial.setNivelChute(15);
+    //pacoteSerial.setNivelChute(15);
 
-    inicializaModeloCinematico();
+    //inicializaModeloCinematico();
 
     //cout << "Dentro do montador id " << id <<  "******************************"<<endl;
 }
 
 void Montador::setId(int _id){
-    id = _id;
-    pacoteSerial.setId(id);
+    pacoteSerial.setRobotId(_id);
 }
 
-void Montador::inicializaModeloCinematico2014(){
+/*void Montador::inicializaModeloCinematico2014(){
 
     //! Estas medidas estão em metros.
 
@@ -91,11 +90,11 @@ void Montador::inicializaModeloCinematico(){
 
     /// essa matriz deve ser invertida e para isso o calculo da pseudo inversa da biblioteca open cv é realizado.
     pInvM = M; //.inv(cv::DECOMP_SVD);
-}
+}*/
 
 
 ProtocoloSerial Montador::criaPacoteSerial(){
-    pacoteSerial.limpaPacote();
+    pacoteSerial.clear();
     Comando comando = Sistema::modeloMundo.getRoboEq(id)->getComando();
 
     /// calculando a velocidade do robo
@@ -104,16 +103,19 @@ ProtocoloSerial Montador::criaPacoteSerial(){
     /// aplicando o modelo cinematico para saber a velocidade angular de cada roda
     calculaVelRodas();
 
-    for(int i=0;i<4;i++){
-        pacoteSerial.setVelocidadePercentualRodas(i,(char)(fabs(velRodas[i][0])/ConfigMontador::MAX_VEL_RODAS*100));
-        pacoteSerial.setDirecaoRodas(i, velRodas[i][0] < 0 ? HORARIO : ANTI_HORARIO);
-    }
+    pacoteSerial.setDribbler(0);
+    pacoteSerial.setKick(0);
 
-    pacoteSerial.setDirecaoDriblador(comando.getDirecaoDrible());
-    pacoteSerial.setEnableDrible(comando.isUsaDrible());
+    //for(int i=0;i<4;i++){
+        //pacoteSerial.setVelocidadePercentualRodas(i,(char)(fabs(velRodas[i][0])/ConfigMontador::MAX_VEL_RODAS*100));
+        //pacoteSerial.setDirecaoRodas(i, velRodas[i][0] < 0 ? HORARIO : ANTI_HORARIO);
+    //}
+
+    //pacoteSerial.setDirecaoDriblador(comando.getDirecaoDrible());
+    //pacoteSerial.setEnableDrible(comando.isUsaDrible());
     // pacote.setVelocidadePercentualDriblador(0); mudei para linha de cima. Luan
-    pacoteSerial.setTipoChute(comando.getTipoChute());
-    pacoteSerial.setEnableChute(comando.getTipoChute() != Comando::SEM_CHUTE);
+    //pacoteSerial.setTipoChute(comando.getTipoChute());
+    //pacoteSerial.setEnableChute(comando.getTipoChute() != Comando::SEM_CHUTE);
 
     return pacoteSerial;
 }
@@ -297,35 +299,58 @@ void Montador::calculaVelLinear(){
 void Montador::calculaVelRodas(){
     cv::Mat_ <float> velRobo(3,1);
 
+    int velocity_x, velocity_y, velocity_theta;
+
     Robo *robo = Sistema::modeloMundo.getRoboEq(id);
     //cout << "orientacao = " << orientacao << endl;
 
     //copia para uma matriz do opencv
-    velRobo[0][0] = robo->getVelocidade().x();     //velocidade em x
-    velRobo[1][0] = robo->getVelocidade().y();      //velocidade em y
-    velRobo[2][0] = robo->getVelAngular();       //velocidade angular
+
+    velocity_x = (int)(robo->getVelocidade().x() * 127 / 2.5);
+    velocity_y = (int)(robo->getVelocidade().y() * 127 / 2.5);
+    velocity_theta = (int)(robo->getVelAngular() * 127 / 2.0);
+
+    if (velocity_x < 0) {
+        pacoteSerial.setDirectionX(1);
+        velocity_x *= -1;
+    } else pacoteSerial.setDirectionX(3);
+
+    if (velocity_y < 0) {
+        pacoteSerial.setDirectionY(1);
+        velocity_y *= -1;
+    } else pacoteSerial.setDirectionY(3);
+
+    if (velocity_theta < 0) {
+        pacoteSerial.setDirectionTheta(1);
+        velocity_theta *= -1;
+    } else pacoteSerial.setDirectionTheta(3);
+
+    pacoteSerial.setVelocityX(velocity_x);     //velocidade em x
+    pacoteSerial.setVelocityY(velocity_y);      //velocidade em y
+    pacoteSerial.setVelocityTheta(velocity_theta);       //velocidade angular
+
     //    cout <<  "Vel ang = " << velRobo[2][0] << endl;
 
-    float orientacao = robo->getOrientacao();
+    /*float orientacao = robo->getOrientacao();
     R[0][0] = cos(orientacao);       R[0][1] = sin(orientacao);
-    R[1][0] = -sin(orientacao);      R[1][1] = cos(orientacao);
+    R[1][0] = -sin(orientacao);      R[1][1] = cos(orientacao);*/
 
     //aplicação do modelo cinemático do robô
-    velRodas = pInvM*R*velRobo;
+    //velRodas = pInvM*R*velRobo;
 
-    float velMaxRodaAtual = ConfigMontador::MAX_VEL_RODAS;
-    float fator = velMaxRodaAtual / ConfigMontador::MAX_VEL_RODAS;
+    //float velMaxRodaAtual = ConfigMontador::MAX_VEL_RODAS;
+    //float fator = velMaxRodaAtual / ConfigMontador::MAX_VEL_RODAS;
 
     //    cout << velMaxRodaAtual << endl;
     //    cout << fator << endl;
 
     //seleciona a maior das velocidades entre as rodas
-    for(int i=0;i<4;i++){
-        if(fabs(velRodas[i][0]) > velMaxRodaAtual){
-            velRodas[i][0] = velRodas[i][0]/fator;
+    //for(int i=0;i<4;i++){
+        //if(fabs(velRodas[i][0]) > velMaxRodaAtual){
+            //velRodas[i][0] = velRodas[i][0]/fator;
             //            velMaxRodaAtual = fabs(velRodas[i][0]);
-        }
-    }
+        //}
+    //}
 
     /// TODO colocar isso depois
     //                ajustaVelocidades();
