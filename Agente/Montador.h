@@ -4,7 +4,7 @@
 #include <opencv/cv.h>
 
 #include <ProtocoloSerial.h>
-#include <grSim_Packet.pb.h>
+#include <grSim-proto/grSim_Packet.pb.h>
 #include <Relogio.h>
 #include <ConfigComunicacao.h>
 #include <ConfigMontador.h>

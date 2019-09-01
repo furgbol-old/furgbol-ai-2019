@@ -2,8 +2,8 @@
 #define BARRAMENTOCOMUNICACAO_H
 
 #include "ProtocoloSerial.h"
-#include "grSim_Packet.pb.h"
-#include "messages_ai_data_manager.pb.h"
+#include "grSim-proto/grSim_Packet.pb.h"
+#include "furgbol-core/furgbol-proto/messages_ai_data_manager.pb.h"
 
 class CommunicationBUS
 {
