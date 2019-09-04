@@ -93,7 +93,7 @@ void Montador::inicializaModeloCinematico(){
 }*/
 
 
-ProtocoloSerial Montador::criaPacoteSerial(){
+furgbol::io::SerialMessage Montador::criaPacoteSerial(){
     pacoteSerial.clear();
     Comando comando = Sistema::modeloMundo.getRoboEq(id)->getComando();
 

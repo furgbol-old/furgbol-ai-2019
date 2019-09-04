@@ -6,7 +6,7 @@
 #include <Tatica.h>
 #include <Montador.h>
 #include <Comunicador.h>
-#include <ProtocoloSerial.h>
+#include <furgbol-core/io/serial_message.h>
 #include <Navegador.h>
 
 /**
