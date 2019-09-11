@@ -9,7 +9,7 @@
 class CommunicationBUS
 {
 private:
-    std::vector<furgbol::io::SerialMessage*> pacoteSerial;  ///< vetor de pacotes contendo um para cada robo para enviar aos robos
+    std::vector<furgbol::io::F180SerialMessage*> pacoteSerial;  ///< vetor de pacotes contendo um para cada robo para enviar aos robos
     std::vector<grSim_Packet*> pacoteSim; ///< vetor de pacotes contendo um para cada robo para enviar ao simulador
     AIDataManagerPackage* pacoteIaMonitorador; ///< Pacote que sera enviado para ser monitorado no gerente de dados
 
@@ -22,7 +22,7 @@ public:
     void setPacoteRobo(int id, const grSim_Packet&);
     void carregaPacoteMonitorador(const AIDataManagerPackage& _pacoteIaMonitorador); ///< Carrega apenas se a monitoracao estiver habilitada
 
-    furgbol::io::SerialMessage* getPacoteSerial(int id);
+    furgbol::io::F180SerialMessage* getPacoteSerial(int id);
     grSim_Packet* getPacoteSimulador(int id);
     AIDataManagerPackage* getPacoteMonitorador();
 };

@@ -68,7 +68,7 @@ void Comunicador::run()
                 if(temporizador.getTempoPassado()-ultimoEnvioSerial > tempoEnvioSerial){
 
                     mBUS->lock();
-                    furgbol::io::SerialMessage* pacoteSerial = bus->getPacoteSerial(id); /// o devolvido é uma copia em formato de ponteiro, não é o endereço.
+                    furgbol::io::F180SerialMessage* pacoteSerial = bus->getPacoteSerial(id); /// o devolvido é uma copia em formato de ponteiro, não é o endereço.
                     mBUS->unlock();
 
                     passou=true;
@@ -146,7 +146,7 @@ void Comunicador::send(const grSim_Packet& _pacoteSimulador)
         cout << " Envio com problemas para monitorador" << endl;
 }
 
-void Comunicador::send(const furgbol::io::F180SerialMessage& _pacoteRobo)
+void Comunicador::send(furgbol::io::F180SerialMessage& _pacoteRobo)
 {
     _pacoteRobo.serialize(buffer_to_send_);
     transSerial.send(buffer_to_send_);

@@ -47,9 +47,9 @@ void CommunicationBUS::carregaPacoteMonitorador(const AIDataManagerPackage &_pac
     *pacoteIaMonitorador = _pacoteIaMonitorador;
 }
 
-furgbol::io::SerialMessage* CommunicationBUS::getPacoteSerial(int id)
+furgbol::io::F180SerialMessage* CommunicationBUS::getPacoteSerial(int id)
 {
-    furgbol::io::SerialMessage* pacote = NULL;   /// aloca um espaco para o pacote a ser retirado do buffer
+    furgbol::io::F180SerialMessage* pacote = NULL;   /// aloca um espaco para o pacote a ser retirado do buffer
 
     if( pacoteSerial[id] != NULL){    /// se o pacote nao for nulo retira do buffer realmete ( delta)
         pacote = new furgbol::io::F180SerialMessage;

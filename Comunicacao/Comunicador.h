@@ -43,6 +43,6 @@ public:
     /// funções que envia cada pacote especifico até o destino
     void send(const AIDataManagerPackage& _pacoteMonitorador);
     void send(const grSim_Packet& _pacoteSimulador);
-    void send(const furgbol::io::F180SerialMessage& _pacoteRobo);
+    void send(furgbol::io::F180SerialMessage& _pacoteRobo);
 };
 #endif
