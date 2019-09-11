@@ -22,9 +22,9 @@ CommunicationBUS::~CommunicationBUS()
     }
 }
 
-void CommunicationBUS::setPacoteRobo(int id, const furgbol::io::SerialMessage & protocoloSerial)
+void CommunicationBUS::setPacoteRobo(int id, const furgbol::io::F180SerialMessage & protocoloSerial)
 {
-    pacoteSerial[id] = new furgbol::io::SerialMessage;
+    pacoteSerial[id] = new furgbol::io::F180SerialMessage;
     *pacoteSerial[id] = protocoloSerial;
 }
 
@@ -52,7 +52,7 @@ furgbol::io::SerialMessage* CommunicationBUS::getPacoteSerial(int id)
     furgbol::io::SerialMessage* pacote = NULL;   /// aloca um espaco para o pacote a ser retirado do buffer
 
     if( pacoteSerial[id] != NULL){    /// se o pacote nao for nulo retira do buffer realmete ( delta)
-        pacote = new furgbol::io::SerialMessage;
+        pacote = new furgbol::io::F180SerialMessage;
         *pacote = *pacoteSerial[id];
         delete pacoteSerial[id];
         pacoteSerial[id] = NULL;

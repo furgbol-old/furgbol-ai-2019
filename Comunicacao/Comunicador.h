@@ -11,6 +11,7 @@
 #include <QMutex>
 #include <QUdpSocket>
 
+
 /**
  * Comunica com os outros processos e com o robo
  */
@@ -25,6 +26,7 @@ private:
 
     QMutex* mBUS; ///< Mutex usado para controlar o acesso no objeto barramento que é compartilhado entre as thread Comunicador e Sistema
     CommunicationBUS* bus; ///< Barramento usado para setar os pacotes
+    std::vector<uint8_t> buffer_to_send_;
 
 public:
     Comunicador();
@@ -41,6 +43,6 @@ public:
     /// funções que envia cada pacote especifico até o destino
     void send(const AIDataManagerPackage& _pacoteMonitorador);
     void send(const grSim_Packet& _pacoteSimulador);
-    void send(const furgbol::io::SerialMessage& _pacoteRobo);
+    void send(const furgbol::io::F180SerialMessage& _pacoteRobo);
 };
 #endif

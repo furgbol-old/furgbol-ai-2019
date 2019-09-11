@@ -1,7 +1,7 @@
 #ifndef BARRAMENTOCOMUNICACAO_H
 #define BARRAMENTOCOMUNICACAO_H
 
-#include "furgbol-core/io/serial_message.h"
+#include "furgbol-core/io/f180_serial_message.h"
 #include "grSim-proto/grSim_Packet.pb.h"
 #include "furgbol-core/furgbol-proto/messages_ai_data_manager.pb.h"
 #include "Utils/Definitions.h"
@@ -17,7 +17,7 @@ public:
     CommunicationBUS();
     ~CommunicationBUS();
 
-    void setPacoteRobo(int id, const furgbol::io::SerialMessage&);
+    void setPacoteRobo(int id, const furgbol::io::F180SerialMessage&);
     void limparPacoteRobo(int id);
     void setPacoteRobo(int id, const grSim_Packet&);
     void carregaPacoteMonitorador(const AIDataManagerPackage& _pacoteIaMonitorador); ///< Carrega apenas se a monitoracao estiver habilitada

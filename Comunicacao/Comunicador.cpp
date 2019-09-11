@@ -146,8 +146,9 @@ void Comunicador::send(const grSim_Packet& _pacoteSimulador)
         cout << " Envio com problemas para monitorador" << endl;
 }
 
-void Comunicador::send(const furgbol::io::SerialMessage& _pacoteRobo)
-{    
-    transSerial.send(_pacoteRobo);
+void Comunicador::send(const furgbol::io::F180SerialMessage& _pacoteRobo)
+{
+    _pacoteRobo.serialize(buffer_to_send_);
+    transSerial.send(buffer_to_send_);
     //cout << "Comunicador não conseguiu escrever na serial" << endl;
 }
