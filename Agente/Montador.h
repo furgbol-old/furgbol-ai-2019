@@ -3,7 +3,7 @@
 
 #include <opencv/cv.h>
 
-#include <ProtocoloSerial.h>
+#include <furgbol-core/io/f180_serial_message.h>
 #include <grSim-proto/grSim_Packet.pb.h>
 #include <Relogio.h>
 #include <ConfigComunicacao.h>
@@ -17,7 +17,7 @@ class Montador
 
 private:
     /// pacotes usados para nos comunicar com os robos
-    ProtocoloSerial pacoteSerial;
+    furgbol::io::F180SerialMessage pacoteSerial;
 
     /**
       O modelo cinamatico esta associado a uma equação que permite
@@ -93,7 +93,7 @@ public:
     //    void calculaVelRodasAdv(int _id);
     //    void ajustaVelocidades();
 
-    ProtocoloSerial criaPacoteSerial();
+    furgbol::io::F180SerialMessage criaPacoteSerial();
     grSim_Packet criaPacoteGrSim();
 
     double vel_atual, vel_ant;

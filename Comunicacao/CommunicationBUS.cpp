@@ -1,5 +1,7 @@
 #include "CommunicationBUS.h"
 
+#define NUM_MAX_ROBOS 12
+
 CommunicationBUS::CommunicationBUS()
 {
     pacoteIaMonitorador = NULL;
@@ -20,9 +22,9 @@ CommunicationBUS::~CommunicationBUS()
     }
 }
 
-void CommunicationBUS::setPacoteRobo(int id, const ProtocoloSerial & protocoloSerial)
+void CommunicationBUS::setPacoteRobo(int id, const furgbol::io::F180SerialMessage & protocoloSerial)
 {
-    pacoteSerial[id] = new ProtocoloSerial;
+    pacoteSerial[id] = new furgbol::io::F180SerialMessage;
     *pacoteSerial[id] = protocoloSerial;
 }
 
@@ -45,12 +47,12 @@ void CommunicationBUS::carregaPacoteMonitorador(const AIDataManagerPackage &_pac
     *pacoteIaMonitorador = _pacoteIaMonitorador;
 }
 
-ProtocoloSerial* CommunicationBUS::getPacoteSerial(int id)
+furgbol::io::F180SerialMessage* CommunicationBUS::getPacoteSerial(int id)
 {
-    ProtocoloSerial* pacote = NULL;   /// aloca um espaco para o pacote a ser retirado do buffer
+    furgbol::io::F180SerialMessage* pacote = NULL;   /// aloca um espaco para o pacote a ser retirado do buffer
 
     if( pacoteSerial[id] != NULL){    /// se o pacote nao for nulo retira do buffer realmete ( delta)
-        pacote = new ProtocoloSerial;
+        pacote = new furgbol::io::F180SerialMessage;
         *pacote = *pacoteSerial[id];
         delete pacoteSerial[id];
         pacoteSerial[id] = NULL;
