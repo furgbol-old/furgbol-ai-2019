@@ -1,7 +1,7 @@
 #ifndef COMUNICADOR_H
 #define COMUNICADOR_H
 
-#include "Serial.h"
+#include "furgbol-core/io/serial_sender.h"
 #include "CommunicationBUS.h"
 #include "Relogio.h"
 #include "Config.h"
@@ -10,6 +10,7 @@
 #include <QThread>
 #include <QMutex>
 #include <QUdpSocket>
+
 
 /**
  * Comunica com os outros processos e com o robo
@@ -21,10 +22,11 @@ private:
 
     /// Objetos usados para enviar os dados para o monitorador, simulador e para os robos pela serial
     QUdpSocket s_udpSocket; ///< Objeto usado para enviar pacotes
-    Serial transSerial;
+    furgbol::io::SerialSender transSerial;
 
     QMutex* mBUS; ///< Mutex usado para controlar o acesso no objeto barramento que é compartilhado entre as thread Comunicador e Sistema
     CommunicationBUS* bus; ///< Barramento usado para setar os pacotes
+    std::vector<uint8_t> buffer_to_send_;
 
 public:
     Comunicador();
@@ -41,6 +43,6 @@ public:
     /// funções que envia cada pacote especifico até o destino
     void send(const AIDataManagerPackage& _pacoteMonitorador);
     void send(const grSim_Packet& _pacoteSimulador);
-    void send(const ProtocoloSerial& _pacoteRobo);
+    void send(furgbol::io::F180SerialMessage& _pacoteRobo);
 };
 #endif

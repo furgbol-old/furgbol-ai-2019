@@ -77,8 +77,6 @@ HEADERS += \
     Agente/Taticas/AndarReto.h \
     Avaliador/AvaliadorRobo.h \
     Avaliador/Avaliador.h \
-    Comunicacao/Serial.h \
-    Comunicacao/ProtocoloSerial.h \
     Comunicacao/Comunicador.h \
     Comunicacao/CommunicationBUS.h \
 #    Comunicacao/IAMonitorador.h \
@@ -158,8 +156,6 @@ SOURCES += main.cpp \
     Agente/Taticas/AndarReto.cpp \
     Avaliador/AvaliadorRobo.cpp \
     Avaliador/Avaliador.cpp \
-    Comunicacao/Serial.cpp \
-    Comunicacao/ProtocoloSerial.cpp \
     Comunicacao/Comunicador.cpp \
     Comunicacao/CommunicationBUS.cpp \
 #    Comunicacao/IAMonitorador.cpp \
