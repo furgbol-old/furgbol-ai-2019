@@ -3,7 +3,7 @@
 
 #include "Comando.h"
 #include "Tatica.h"
-#include "furgbol-core/furgbol-proto/messages_ai_2Dsimulator.pb.h"
+#include "furgbol-core/proto/messages_ai_2Dsimulator.pb.h"
 
 const int RAIO_ROBO=90; /// raio maximo do robo.
 

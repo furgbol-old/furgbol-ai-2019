@@ -5,7 +5,7 @@
 #include "Robo.h"
 #include "Bola.h"
 #include "Jogada.h"
-#include "furgbol-core/furgbol-proto/messages_data_manager.pb.h"
+#include "furgbol-core/proto/messages_data_manager.pb.h"
 #include "Geometria.h"
 #include "Config.h"
 #include "Campo.h"
