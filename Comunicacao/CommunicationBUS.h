@@ -3,7 +3,7 @@
 
 #include "furgbol-core/io/f180_serial_message.h"
 #include "grSim-proto/grSim_Packet.pb.h"
-#include "furgbol-core/furgbol-proto/messages_ai_data_manager.pb.h"
+#include "furgbol-core/proto/messages_ai_data_manager.pb.h"
 #include "Utils/Definitions.h"
 
 class CommunicationBUS

@@ -5,11 +5,9 @@
 #-------------------------------------------------
 
 QT += core gui network
-QT += network
-
-TARGET = IA
 TEMPLATE = app
 
+TARGET = ai
 INCLUDEPATH +=  ../furgbol-core/include
 
 INCLUDEPATH += Utils \
@@ -191,4 +189,4 @@ QMAKE_CXXFLAGS += -O3 -frounding-math
 
 LIBS += -lboost_system -lboost_thread -lprotobuf
 LIBS += -L../CGAL-4.13.1/lib -lCGAL
-LIBS += -L../furgbol-core/lib -lssl-vision-proto -lssl-refbox-proto -lgrSim-proto -lfurgbol-proto
+LIBS += -L../furgbol-core/lib -lssl-vision-proto -lssl-refbox-proto -lgrSim-proto -lfurgbol-proto -lfurgbol-core-io
